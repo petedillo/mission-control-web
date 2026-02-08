@@ -4,14 +4,14 @@
   "description": "Mission Control Web UI - Homelab Infrastructure Dashboard",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
-    "build": "next build",
-    "start": "next start -p 3001",
+    "dev": "bun --bun next dev -p 3001",
+    "build": "bun --bun next build",
+    "start": "bun --bun next start -p 3001",
     "lint": "next lint",
-    "type-check": "tsc --noEmit",
-    "test": "vitest",
-    "test:watch": "vitest --watch",
-    "test:coverage": "vitest --coverage"
+    "type-check": "bun tsc --noEmit",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun test --coverage"
   },
   "dependencies": {
     "next": "^14.1.0",
