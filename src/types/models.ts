@@ -1,11 +1,17 @@
 export interface Host {
   id: string;
   name: string;
-  type: 'kubernetes' | 'proxmox' | 'vm' | 'lxc';
-  status: 'online' | 'offline' | 'degraded';
-  address: string;
-  cpu_usage?: number;
-  memory_usage?: number;
+  type: 'proxmox-node' | 'vm' | 'k8s-node' | 'docker-host' | 'lxc-container';
+  cluster: string | null;
+  addresses: {
+    lan?: string;
+    tailscale?: string;
+    public?: string;
+  };
+  status: 'online' | 'offline' | 'degraded' | 'unknown';
+  last_seen_at: string | null;
+  tags: string[];
+  metadata: Record<string, unknown>;
   created_at: string;
   updated_at: string;
 }
@@ -13,11 +19,14 @@ export interface Host {
 export interface Workload {
   id: string;
   name: string;
-  type: 'deployment' | 'statefulset' | 'daemonset' | 'pod';
-  namespace: string;
-  status: 'running' | 'pending' | 'failed' | 'succeeded';
-  replicas?: number;
-  ready_replicas?: number;
+  type: 'k8s-deployment' | 'k8s-statefulset' | 'k8s-pod' | 'k8s-daemonset' | 'proxmox-vm' | 'proxmox-lxc' | 'docker-container' | 'compose-stack';
+  host_id: string | null;
+  status: 'running' | 'stopped' | 'pending' | 'failed' | 'unknown';
+  namespace: string | null;
+  spec: Record<string, unknown>;
+  health_status: 'healthy' | 'unhealthy' | 'unknown';
+  last_updated_at: string | null;
+  metadata: Record<string, unknown>;
   created_at: string;
   updated_at: string;
 }
