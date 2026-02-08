@@ -6,6 +6,8 @@ class APIClient {
     const envUrl =
       (globalThis as { process?: { env?: { NEXT_PUBLIC_API_URL?: string } } })
         .process?.env?.NEXT_PUBLIC_API_URL;
+    
+    // Default to localhost:3000 for development/port-forwarding
     this.baseUrl = envUrl || 'http://localhost:3000';
   }
 
