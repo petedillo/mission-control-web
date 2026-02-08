@@ -48,17 +48,17 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-center font-mono text-sm">
+      <div className="z-10 max-w-5xl w-full items-center justify-center text-sm">
         <h1 className="text-4xl font-bold mb-4">Mission Control</h1>
         <p className="text-xl mb-8">Homelab Infrastructure Management</p>
         
         <div className="grid gap-4">
-          <div className="p-4 border rounded-lg">
+          <div className="glass-card p-4">
             <h2 className="text-xl font-semibold mb-2">✅ Web UI Deployed</h2>
             <p>Frontend is running and ready for development</p>
           </div>
 
-          <div className="p-4 border rounded-lg">
+          <div className="glass-card p-4">
             <h2 className="text-xl font-semibold mb-2">
               {loading ? '⏳' : error ? '❌' : '✅'} Backend Connection
             </h2>
@@ -86,7 +86,7 @@ export default function Home() {
           </div>
 
           {backendInfo && (
-            <div className="p-4 border rounded-lg bg-green-50 dark:bg-green-900/20">
+            <div className="glass-card p-4 bg-green-50/40 dark:bg-green-900/20">
               <h2 className="text-xl font-semibold mb-2 text-green-700 dark:text-green-400">
                 🎉 Phase 1 Complete!
               </h2>
