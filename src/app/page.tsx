@@ -44,7 +44,7 @@ export default function Home() {
     checkBackend();
   }, []);
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'Not configured';
+  const apiUrl = apiClient.getBaseUrl();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">

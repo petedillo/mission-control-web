@@ -11,6 +11,10 @@ class APIClient {
     this.baseUrl = envUrl || 'http://localhost:3000';
   }
 
+  getBaseUrl() {
+    return this.baseUrl;
+  }
+
   setToken(token: string) {
     this.token = token;
   }
