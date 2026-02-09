@@ -14,7 +14,7 @@ import { useHosts } from '@/lib/hooks/useInventory';
 import { formatDistanceToNow } from 'date-fns';
 import type { Host } from '@/types/models';
 
-export function HostsTable({ search }: { search: string }) {
+export function HostsTable({ search, onHostSelect }: { search: string; onHostSelect?: (id: string) => void }) {
   const { data, isLoading, error } = useHosts();
 
   if (error) {
@@ -71,7 +71,11 @@ export function HostsTable({ search }: { search: string }) {
             </TableRow>
           ) : (
             filtered.map((host: Host) => (
-              <TableRow key={host.id}>
+              <TableRow
+                key={host.id}
+                className="cursor-pointer hover:bg-slate-50"
+                onClick={() => onHostSelect?.(host.id)}
+              >
                 <TableCell className="font-medium">{host.name}</TableCell>
                 <TableCell className="text-sm text-muted-foreground">
                   {host.type.replace('k8s-', '')}

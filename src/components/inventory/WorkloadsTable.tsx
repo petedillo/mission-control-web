@@ -14,7 +14,7 @@ import { useWorkloads } from '@/lib/hooks/useInventory';
 import { formatDistanceToNow } from 'date-fns';
 import type { Workload } from '@/types/models';
 
-export function WorkloadsTable({ search }: { search: string }) {
+export function WorkloadsTable({ search, onWorkloadSelect }: { search: string; onWorkloadSelect?: (id: string) => void }) {
   const { data, isLoading, error } = useWorkloads();
 
   if (error) {
@@ -75,7 +75,11 @@ export function WorkloadsTable({ search }: { search: string }) {
             </TableRow>
           ) : (
             filtered.map((workload: Workload) => (
-              <TableRow key={workload.id}>
+              <TableRow
+                key={workload.id}
+                className="cursor-pointer hover:bg-slate-50"
+                onClick={() => onWorkloadSelect?.(workload.id)}
+              >
                 <TableCell className="font-medium">{workload.name}</TableCell>
                 <TableCell className="text-sm text-muted-foreground">
                   {workload.type.replace('k8s-', '')}

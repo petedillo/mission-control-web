@@ -14,6 +14,10 @@ export interface Host {
   metadata: Record<string, unknown>;
   created_at: string;
   updated_at: string;
+  // Optional extended properties from metadata
+  ip_address?: string;
+  cpu_cores?: number;
+  memory_gb?: number;
 }
 
 export interface Workload {
@@ -29,6 +33,11 @@ export interface Workload {
   metadata: Record<string, unknown>;
   created_at: string;
   updated_at: string;
+  // Optional extended properties from metadata/spec
+  replicas?: number;
+  ready_replicas?: number;
+  containers?: Array<{ name: string; image: string }>;
+  image?: string;
 }
 
 export interface Task {
