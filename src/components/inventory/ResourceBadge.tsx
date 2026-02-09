@@ -8,23 +8,73 @@ export function ResourceBadge({
 }: {
   status: string;
 }) {
-  const variants: Record<string, { bg: string; text: string; label: string }> = {
-    online: { bg: 'bg-green-100 dark:bg-green-900/30', text: 'text-green-700 dark:text-green-400', label: 'Online' },
-    offline: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-700 dark:text-red-400', label: 'Offline' },
-    degraded: { bg: 'bg-yellow-100 dark:bg-yellow-900/30', text: 'text-yellow-700 dark:text-yellow-400', label: 'Degraded' },
-    running: { bg: 'bg-green-100 dark:bg-green-900/30', text: 'text-green-700 dark:text-green-400', label: 'Running' },
-    stopped: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-700 dark:text-red-400', label: 'Stopped' },
-    pending: { bg: 'bg-yellow-100 dark:bg-yellow-900/30', text: 'text-yellow-700 dark:text-yellow-400', label: 'Pending' },
-    failed: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-700 dark:text-red-400', label: 'Failed' },
-    healthy: { bg: 'bg-green-100 dark:bg-green-900/30', text: 'text-green-700 dark:text-green-400', label: 'Healthy' },
-    unhealthy: { bg: 'bg-red-100 dark:bg-red-900/30', text: 'text-red-700 dark:text-red-400', label: 'Unhealthy' },
-    unknown: { bg: 'bg-gray-100 dark:bg-gray-900/30', text: 'text-gray-700 dark:text-gray-400', label: 'Unknown' },
+  const variants: Record<string, { bg: string; text: string; label: string; shadow: string }> = {
+    online: { 
+      bg: 'bg-green-500/20', 
+      text: 'text-green-300', 
+      label: 'Online',
+      shadow: 'shadow-sm shadow-green-500/20'
+    },
+    offline: { 
+      bg: 'bg-red-500/20', 
+      text: 'text-red-300', 
+      label: 'Offline',
+      shadow: 'shadow-sm shadow-red-500/20'
+    },
+    degraded: { 
+      bg: 'bg-yellow-500/20', 
+      text: 'text-yellow-300', 
+      label: 'Degraded',
+      shadow: 'shadow-sm shadow-yellow-500/20'
+    },
+    running: { 
+      bg: 'bg-green-500/20', 
+      text: 'text-green-300', 
+      label: 'Running',
+      shadow: 'shadow-sm shadow-green-500/20'
+    },
+    stopped: { 
+      bg: 'bg-red-500/20', 
+      text: 'text-red-300', 
+      label: 'Stopped',
+      shadow: 'shadow-sm shadow-red-500/20'
+    },
+    pending: { 
+      bg: 'bg-yellow-500/20', 
+      text: 'text-yellow-300', 
+      label: 'Pending',
+      shadow: 'shadow-sm shadow-yellow-500/20'
+    },
+    failed: { 
+      bg: 'bg-red-500/20', 
+      text: 'text-red-300', 
+      label: 'Failed',
+      shadow: 'shadow-sm shadow-red-500/20'
+    },
+    healthy: { 
+      bg: 'bg-green-500/20', 
+      text: 'text-green-300', 
+      label: 'Healthy',
+      shadow: 'shadow-sm shadow-green-500/20'
+    },
+    unhealthy: { 
+      bg: 'bg-red-500/20', 
+      text: 'text-red-300', 
+      label: 'Unhealthy',
+      shadow: 'shadow-sm shadow-red-500/20'
+    },
+    unknown: { 
+      bg: 'bg-gray-500/20', 
+      text: 'text-gray-400', 
+      label: 'Unknown',
+      shadow: ''
+    },
   };
 
   const variant = variants[status] || variants.unknown;
 
   return (
-    <Badge className={cn(variant.bg, variant.text, 'border-0 font-normal')}>
+    <Badge className={cn(variant.bg, variant.text, variant.shadow, 'border-0 font-medium')}>
       {variant.label}
     </Badge>
   );

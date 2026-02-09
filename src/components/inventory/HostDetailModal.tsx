@@ -18,8 +18,8 @@ export function HostDetailModal({ hostId, onClose }: HostDetailModalProps) {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
-        <Card className="w-full max-w-2xl mx-4 p-6">
+      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <Card className="w-full max-w-2xl mx-4 p-6 glass-modal">
           <div className="space-y-4">
             <Skeleton className="h-8 w-48" />
             <Skeleton className="h-4 w-full" />
@@ -33,12 +33,12 @@ export function HostDetailModal({ hostId, onClose }: HostDetailModalProps) {
 
   if (error || !data?.data) {
     return (
-      <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
-        <Card className="w-full max-w-2xl mx-4 p-6">
-          <p className="text-red-500">Failed to load host details</p>
+      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <Card className="w-full max-w-2xl mx-4 p-6 glass-modal">
+          <p className="text-destructive">Failed to load host details</p>
           <button
             onClick={onClose}
-            className="mt-4 px-4 py-2 bg-slate-200 rounded hover:bg-slate-300"
+            className="mt-4 px-4 py-2 bg-white/[0.1] hover:bg-white/[0.15] rounded-lg transition-colors"
           >
             Close
           </button>
@@ -53,20 +53,20 @@ export function HostDetailModal({ hostId, onClose }: HostDetailModalProps) {
     switch (status.toLowerCase()) {
       case 'ready':
       case 'running':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-500/20 text-green-300';
       case 'notready':
       case 'stopped':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-500/20 text-red-300';
       case 'unknown':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-500/20 text-yellow-300';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-500/20 text-gray-400';
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl max-h-96 overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <Card className="w-full max-w-2xl max-h-96 overflow-y-auto glass-modal">
         <div className="p-6 space-y-6">
           {/* Header */}
           <div className="flex items-start justify-between">
@@ -76,7 +76,7 @@ export function HostDetailModal({ hostId, onClose }: HostDetailModalProps) {
             </div>
             <button
               onClick={onClose}
-              className="text-xl font-bold text-gray-500 hover:text-gray-700"
+              className="text-xl font-bold text-muted-foreground hover:text-foreground transition-colors"
             >
               ✕
             </button>
@@ -85,37 +85,37 @@ export function HostDetailModal({ hostId, onClose }: HostDetailModalProps) {
           {/* Details Grid */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm font-semibold text-gray-600">Type</p>
+              <p className="text-sm font-semibold text-muted-foreground">Type</p>
               <p className="text-lg">{host.type}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-600">IP Address</p>
+              <p className="text-sm font-semibold text-muted-foreground">IP Address</p>
               <p className="text-lg font-mono">{host.ip_address || 'N/A'}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-600">CPU Cores</p>
+              <p className="text-sm font-semibold text-muted-foreground">CPU Cores</p>
               <p className="text-lg">{host.cpu_cores || 'N/A'}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-gray-600">Memory (GB)</p>
+              <p className="text-sm font-semibold text-muted-foreground">Memory (GB)</p>
               <p className="text-lg">{host.memory_gb || 'N/A'}</p>
             </div>
           </div>
 
           {/* Timestamps */}
-          <div className="border-t pt-4 space-y-2 text-sm text-gray-600">
+          <div className="border-t border-white/[0.06] pt-4 space-y-2 text-sm text-muted-foreground">
             <p>
-              <span className="font-semibold">Created:</span> {new Date(host.created_at).toLocaleString()}
+              <span className="font-semibold text-foreground">Created:</span> {new Date(host.created_at).toLocaleString()}
             </p>
             <p>
-              <span className="font-semibold">Updated:</span> {new Date(host.updated_at).toLocaleString()}
+              <span className="font-semibold text-foreground">Updated:</span> {new Date(host.updated_at).toLocaleString()}
             </p>
           </div>
 
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="w-full px-4 py-2 bg-slate-200 rounded hover:bg-slate-300 font-medium"
+            className="w-full px-4 py-2 bg-white/[0.1] hover:bg-white/[0.15] rounded-lg font-medium transition-colors"
           >
             Close
           </button>
