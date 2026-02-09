@@ -29,7 +29,7 @@ export function HostsTable({ search, onHostSelect }: { search: string; onHostSel
   const filtered = hosts.filter((h: Host) => h.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="rounded-lg border">
+    <div className="glass-card overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow>
@@ -73,7 +73,7 @@ export function HostsTable({ search, onHostSelect }: { search: string; onHostSel
             filtered.map((host: Host) => (
               <TableRow
                 key={host.id}
-                className="cursor-pointer hover:bg-slate-50"
+                className="cursor-pointer hover:bg-white/[0.05] transition-colors duration-150"
                 onClick={() => onHostSelect?.(host.id)}
               >
                 <TableCell className="font-medium">{host.name}</TableCell>

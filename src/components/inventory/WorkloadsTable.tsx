@@ -29,7 +29,7 @@ export function WorkloadsTable({ search, onWorkloadSelect }: { search: string; o
   const filtered = workloads.filter((w: Workload) => w.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="rounded-lg border">
+    <div className="glass-card overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow>
@@ -77,7 +77,7 @@ export function WorkloadsTable({ search, onWorkloadSelect }: { search: string; o
             filtered.map((workload: Workload) => (
               <TableRow
                 key={workload.id}
-                className="cursor-pointer hover:bg-slate-50"
+                className="cursor-pointer hover:bg-white/[0.05] transition-colors duration-150"
                 onClick={() => onWorkloadSelect?.(workload.id)}
               >
                 <TableCell className="font-medium">{workload.name}</TableCell>

@@ -61,6 +61,15 @@ module.exports = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		backdropBlur: {
+  			'xs': '2px',
+  			'glass': '40px',
+  			'glass-panel': '30px',
+  			'glass-modal': '60px',
+  		},
+  		backdropSaturate: {
+  			'glass': '1.8',
   		}
   	}
   },
