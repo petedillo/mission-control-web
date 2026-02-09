@@ -18,31 +18,35 @@ export function WorkloadDetailModal({ workloadId, onClose }: WorkloadDetailModal
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <Card className="w-full max-w-2xl mx-4 p-6 glass-modal">
-          <div className="space-y-4">
-            <Skeleton className="h-8 w-48" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-3/4" />
-          </div>
-        </Card>
+      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={onClose}>
+        <div className="flex min-h-full w-full items-center justify-center p-4">
+          <Card className="w-full max-w-2xl p-6 glass-modal" onClick={(event) => event.stopPropagation()}>
+            <div className="space-y-4">
+              <Skeleton className="h-8 w-48" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-3/4" />
+            </div>
+          </Card>
+        </div>
       </div>
     );
   }
 
   if (error || !data?.data) {
     return (
-      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-        <Card className="w-full max-w-2xl mx-4 p-6 glass-modal">
-          <p className="text-destructive">Failed to load workload details</p>
-          <button
-            onClick={onClose}
-            className="mt-4 px-4 py-2 bg-white/[0.1] hover:bg-white/[0.15] rounded-lg transition-colors"
-          >
-            Close
-          </button>
-        </Card>
+      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={onClose}>
+        <div className="flex min-h-full w-full items-center justify-center p-4">
+          <Card className="w-full max-w-2xl p-6 glass-modal" onClick={(event) => event.stopPropagation()}>
+            <p className="text-destructive">Failed to load workload details</p>
+            <button
+              onClick={onClose}
+              className="mt-4 px-4 py-2 bg-white/[0.1] hover:bg-white/[0.15] rounded-lg transition-colors"
+            >
+              Close
+            </button>
+          </Card>
+        </div>
       </div>
     );
   }
@@ -77,9 +81,13 @@ export function WorkloadDetailModal({ workloadId, onClose }: WorkloadDetailModal
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl max-h-96 overflow-y-auto glass-modal">
-        <div className="p-6 space-y-6">
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={onClose}>
+      <div className="flex min-h-full w-full items-center justify-center p-4">
+        <Card
+          className="w-full max-w-2xl max-h-[calc(100vh-2rem)] overflow-y-auto glass-modal"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div className="p-6 space-y-6">
           {/* Header */}
           <div className="flex items-start justify-between">
             <div>
@@ -142,8 +150,9 @@ export function WorkloadDetailModal({ workloadId, onClose }: WorkloadDetailModal
           >
             Close
           </button>
-        </div>
-      </Card>
+          </div>
+        </Card>
+      </div>
     </div>
   );
 }
