@@ -7,7 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export function HealthStatus() {
   const { data: fullHealth, isLoading: healthLoading } = useFullHealth();
-  const { data: liveness, isLoading: livenessLoading } = useLiveness();
+  const { isLoading: livenessLoading } = useLiveness();
 
   if (healthLoading || livenessLoading) {
     return (

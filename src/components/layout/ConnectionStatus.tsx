@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useHealth } from '@/lib/hooks/useInventory';
 
 export function ConnectionStatus() {
-  const { data, isLoading, error } = useHealth();
+  const { isLoading, error } = useHealth();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

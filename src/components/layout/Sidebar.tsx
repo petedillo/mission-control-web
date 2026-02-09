@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Server, ListTodo, BarChart3, Settings } from 'lucide-react';
+import { Home, Server } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
