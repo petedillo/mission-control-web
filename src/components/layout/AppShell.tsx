@@ -10,7 +10,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="flex pt-16">
         <Sidebar />
         <main className="ml-64 flex-1 overflow-auto">
-          <div className="p-8">{children}</div>
+          <section className="p-8">{children}</section>
         </main>
       </div>
     </div>

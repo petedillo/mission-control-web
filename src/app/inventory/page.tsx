@@ -38,8 +38,8 @@ export default function InventoryPage() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <article className="space-y-8">
+      <header className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Inventory</h1>
           <p className="mt-2 text-muted-foreground">Manage and monitor all hosts and workloads.</p>
@@ -47,10 +47,12 @@ export default function InventoryPage() {
         <Button onClick={handleRefresh} disabled={isSyncing} variant="outline">
           {isSyncing ? 'Syncing...' : 'Refresh Now'}
         </Button>
-      </div>
+      </header>
 
       {syncMessage && (
-        <div
+        <aside
+          role="status"
+          aria-live="polite"
           className={`p-4 rounded-lg ${
             syncMessage.type === 'success'
               ? 'bg-green-100 text-green-800'
@@ -58,7 +60,7 @@ export default function InventoryPage() {
           }`}
         >
           {syncMessage.text}
-        </div>
+        </aside>
       )}
 
       <FilterBar search={search} onSearchChange={setSearch} />
@@ -78,6 +80,6 @@ export default function InventoryPage() {
 
       <HostDetailModal hostId={selectedHostId} onClose={() => setSelectedHostId(null)} />
       <WorkloadDetailModal workloadId={selectedWorkloadId} onClose={() => setSelectedWorkloadId(null)} />
-    </div>
+    </article>
   );
 }

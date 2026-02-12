@@ -19,9 +19,9 @@ export function WorkloadsTable({ search, onWorkloadSelect }: { search: string; o
 
   if (error) {
     return (
-      <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
+      <aside role="alert" className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
         <p className="text-sm text-destructive">Failed to load workloads</p>
-      </div>
+      </aside>
     );
   }
 
@@ -29,7 +29,7 @@ export function WorkloadsTable({ search, onWorkloadSelect }: { search: string; o
   const filtered = workloads.filter((w: Workload) => w.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="glass-card overflow-hidden">
+    <figure className="glass-card overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow>
@@ -103,6 +103,6 @@ export function WorkloadsTable({ search, onWorkloadSelect }: { search: string; o
           )}
         </TableBody>
       </Table>
-    </div>
+    </figure>
   );
 }

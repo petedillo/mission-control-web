@@ -10,7 +10,7 @@ export function InventorySummary() {
 
   if (error) {
     return (
-      <div className="grid gap-4 md:grid-cols-2">
+      <section className="grid gap-4 md:grid-cols-2">
         <Card className="border-destructive/50">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Hosts</CardTitle>
@@ -31,12 +31,12 @@ export function InventorySummary() {
             <p className="text-xs text-muted-foreground">Failed to load</p>
           </CardContent>
         </Card>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <section className="grid gap-4 md:grid-cols-2">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Hosts</CardTitle>
@@ -69,6 +69,6 @@ export function InventorySummary() {
           )}
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 }

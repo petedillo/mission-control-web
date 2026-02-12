@@ -21,54 +21,54 @@ export function HealthStatus() {
     );
   }
 
-  const statusColor = fullHealth?.status === 'ok' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
+  const statusColor = fullHealth?.status === 'ok' ? 'bg-green-500/20 text-green-300' : 'bg-yellow-500/20 text-yellow-300';
   const dbConnected = fullHealth?.database.connected;
 
   return (
     <Card className="p-6 space-y-4">
-      <div className="flex items-center justify-between">
+      <header className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">System Health</h3>
         <Badge className={statusColor}>{fullHealth?.status || 'unknown'}</Badge>
-      </div>
+      </header>
 
-      <div className="grid grid-cols-2 gap-4 text-sm">
+      <section className="grid grid-cols-2 gap-4 text-sm">
         <div>
-          <p className="text-gray-600">Status</p>
+          <p className="text-muted-foreground">Status</p>
           <p className="font-semibold capitalize">{fullHealth?.status}</p>
         </div>
         <div>
-          <p className="text-gray-600">Uptime</p>
+          <p className="text-muted-foreground">Uptime</p>
           <p className="font-semibold">{Math.round((fullHealth?.uptime || 0) / 60)}s</p>
         </div>
         <div>
-          <p className="text-gray-600">Database</p>
-          <Badge className={dbConnected ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
+          <p className="text-muted-foreground">Database</p>
+          <Badge className={dbConnected ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}>
             {dbConnected ? 'Connected' : 'Disconnected'}
           </Badge>
         </div>
         <div>
-          <p className="text-gray-600">Liveness</p>
-          <Badge className="bg-green-100 text-green-800">Alive</Badge>
+          <p className="text-muted-foreground">Liveness</p>
+          <Badge className="bg-green-500/20 text-green-300">Alive</Badge>
         </div>
-      </div>
+      </section>
 
       {fullHealth?.database.pool && (
-        <div className="border-t pt-4">
-          <p className="text-sm font-semibold mb-2">Database Pool</p>
-          <div className="text-xs text-gray-600 space-y-1">
+        <article className="border-t border-white/[0.06] pt-4">
+          <h4 className="text-sm font-semibold mb-2">Database Pool</h4>
+          <div className="text-xs text-muted-foreground space-y-1">
             <p>
               Connections:{' '}
-              <span className="font-mono font-semibold text-gray-900">
+              <span className="font-mono font-semibold text-foreground">
                 {JSON.stringify(fullHealth.database.pool).substring(0, 100)}...
               </span>
             </p>
           </div>
-        </div>
+        </article>
       )}
 
-      <div className="text-xs text-gray-500 border-t pt-2">
+      <footer className="text-xs text-muted-foreground border-t border-white/[0.06] pt-2">
         Updated: {new Date(fullHealth?.timestamp || Date.now()).toLocaleTimeString()}
-      </div>
+      </footer>
     </Card>
   );
 }

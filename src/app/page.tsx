@@ -5,20 +5,20 @@ import { HealthStatus } from '@/components/layout/HealthStatus';
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-8">
-      <div>
+    <article className="space-y-8">
+      <header>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="mt-2 text-muted-foreground">Welcome to Mission Control. Your homelab at a glance.</p>
-      </div>
+      </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <InventorySummary />
         </div>
-        <div>
+        <aside>
           <HealthStatus />
-        </div>
-      </div>
-    </div>
+        </aside>
+      </section>
+    </article>
   );
 }
