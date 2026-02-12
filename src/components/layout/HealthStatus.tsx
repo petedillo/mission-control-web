@@ -26,12 +26,12 @@ export function HealthStatus() {
 
   return (
     <Card className="p-6 space-y-4">
-      <div className="flex items-center justify-between">
+      <header className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">System Health</h3>
         <Badge className={statusColor}>{fullHealth?.status || 'unknown'}</Badge>
-      </div>
+      </header>
 
-      <div className="grid grid-cols-2 gap-4 text-sm">
+      <section className="grid grid-cols-2 gap-4 text-sm">
         <div>
           <p className="text-muted-foreground">Status</p>
           <p className="font-semibold capitalize">{fullHealth?.status}</p>
@@ -50,11 +50,11 @@ export function HealthStatus() {
           <p className="text-muted-foreground">Liveness</p>
           <Badge className="bg-green-500/20 text-green-300">Alive</Badge>
         </div>
-      </div>
+      </section>
 
       {fullHealth?.database.pool && (
-        <div className="border-t border-white/[0.06] pt-4">
-          <p className="text-sm font-semibold mb-2">Database Pool</p>
+        <article className="border-t border-white/[0.06] pt-4">
+          <h4 className="text-sm font-semibold mb-2">Database Pool</h4>
           <div className="text-xs text-muted-foreground space-y-1">
             <p>
               Connections:{' '}
@@ -63,12 +63,12 @@ export function HealthStatus() {
               </span>
             </p>
           </div>
-        </div>
+        </article>
       )}
 
-      <div className="text-xs text-muted-foreground border-t border-white/[0.06] pt-2">
+      <footer className="text-xs text-muted-foreground border-t border-white/[0.06] pt-2">
         Updated: {new Date(fullHealth?.timestamp || Date.now()).toLocaleTimeString()}
-      </div>
+      </footer>
     </Card>
   );
 }

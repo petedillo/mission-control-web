@@ -19,9 +19,9 @@ export function HostsTable({ search, onHostSelect }: { search: string; onHostSel
 
   if (error) {
     return (
-      <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
+      <aside role="alert" className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
         <p className="text-sm text-destructive">Failed to load hosts</p>
-      </div>
+      </aside>
     );
   }
 
@@ -29,7 +29,7 @@ export function HostsTable({ search, onHostSelect }: { search: string; onHostSel
   const filtered = hosts.filter((h: Host) => h.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="glass-card overflow-hidden">
+    <figure className="glass-card overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow>
@@ -96,6 +96,6 @@ export function HostsTable({ search, onHostSelect }: { search: string; onHostSel
           )}
         </TableBody>
       </Table>
-    </div>
+    </figure>
   );
 }
