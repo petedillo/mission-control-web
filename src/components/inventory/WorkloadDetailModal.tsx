@@ -1,5 +1,3 @@
-'use client';
-
 import { useWorkloadById } from '@/lib/hooks/useInventory';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

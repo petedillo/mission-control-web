@@ -3,12 +3,8 @@ class APIClient {
   private token: string | null = null;
 
   constructor() {
-    const envUrl =
-      (globalThis as { process?: { env?: { NEXT_PUBLIC_API_URL?: string } } })
-        .process?.env?.NEXT_PUBLIC_API_URL;
-    
-    // Default to localhost:3000 for development/port-forwarding
-    this.baseUrl = envUrl || 'http://localhost:3000';
+    // Use Vite environment variable
+    this.baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
   }
 
   getBaseUrl() {

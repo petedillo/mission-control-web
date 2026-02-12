@@ -1,5 +1,3 @@
-'use client';
-
 import { ConnectionStatus } from './ConnectionStatus';
 
 export function Header() {
