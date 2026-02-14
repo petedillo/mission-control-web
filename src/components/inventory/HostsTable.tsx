@@ -74,17 +74,17 @@ export function HostsTable({ search, onHostSelect }: { search: string; onHostSel
                 className="cursor-pointer hover:bg-white/[0.05] transition-colors duration-150"
                 onClick={() => onHostSelect?.(host.id)}
               >
-                <TableCell className="font-medium">{host.name}</TableCell>
-                <TableCell className="text-sm text-muted-foreground">
+                <TableCell className="font-medium text-white">{host.name}</TableCell>
+                <TableCell className="text-sm text-gray-400">
                   {host.type.replace('k8s-', '')}
                 </TableCell>
                 <TableCell>
                   <ResourceBadge status={host.status} />
                 </TableCell>
-                <TableCell className="font-mono text-sm">
+                <TableCell className="font-mono text-sm text-white">
                   {host.addresses?.lan || '—'}
                 </TableCell>
-                <TableCell className="text-right text-sm text-muted-foreground">
+                <TableCell className="text-right text-sm text-gray-400">
                   {host.last_seen_at
                     ? formatDistanceToNow(new Date(host.last_seen_at), { addSuffix: true })
                     : '—'}

@@ -7,6 +7,7 @@ import { HostDetailModal } from '@/components/inventory/HostDetailModal';
 import { WorkloadDetailModal } from '@/components/inventory/WorkloadDetailModal';
 import { triggerInventorySync } from '@/lib/hooks/useInventory';
 import { Button } from '@/components/ui/button';
+import { RefreshCw } from 'lucide-react';
 
 export default function InventoryPage() {
   const [search, setSearch] = useState('');
@@ -39,10 +40,11 @@ export default function InventoryPage() {
     <article className="space-y-8">
       <header className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Inventory</h1>
-          <p className="mt-2 text-muted-foreground">Manage and monitor all hosts and workloads.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-white">Inventory</h1>
+          <p className="mt-2 text-gray-300">Manage and monitor all hosts and workloads.</p>
         </div>
-        <Button onClick={handleRefresh} disabled={isSyncing} variant="outline">
+        <Button onClick={handleRefresh} disabled={isSyncing} variant="outline" className="gap-2">
+          <RefreshCw className={`h-4 w-4 ${isSyncing ? 'animate-spin' : ''}`} />
           {isSyncing ? 'Syncing...' : 'Refresh Now'}
         </Button>
       </header>
@@ -51,10 +53,10 @@ export default function InventoryPage() {
         <aside
           role="status"
           aria-live="polite"
-          className={`p-4 rounded-lg ${
+          className={`glass-card p-4 rounded-lg border ${
             syncMessage.type === 'success'
-              ? 'bg-green-100 text-green-800'
-              : 'bg-red-100 text-red-800'
+              ? 'border-green-500/30 bg-green-500/10 text-green-200'
+              : 'border-red-500/30 bg-red-500/10 text-red-200'
           }`}
         >
           {syncMessage.text}

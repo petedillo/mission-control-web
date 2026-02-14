@@ -25,35 +25,35 @@ export function HealthStatus() {
   return (
     <Card className="p-6 space-y-4">
       <header className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">System Health</h3>
+        <h3 className="text-lg font-semibold text-white">System Health</h3>
         <Badge className={statusColor}>{fullHealth?.status || 'unknown'}</Badge>
       </header>
 
       <section className="grid grid-cols-2 gap-4 text-sm">
         <div>
-          <p className="text-muted-foreground">Status</p>
-          <p className="font-semibold capitalize">{fullHealth?.status}</p>
+          <p className="text-gray-400">Status</p>
+          <p className="font-semibold text-white capitalize">{fullHealth?.status}</p>
         </div>
         <div>
-          <p className="text-muted-foreground">Uptime</p>
-          <p className="font-semibold">{Math.round((fullHealth?.uptime || 0) / 60)}s</p>
+          <p className="text-gray-400">Uptime</p>
+          <p className="font-semibold text-white">{Math.round((fullHealth?.uptime || 0) / 60)}s</p>
         </div>
         <div>
-          <p className="text-muted-foreground">Database</p>
+          <p className="text-gray-400">Database</p>
           <Badge className={dbConnected ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}>
             {dbConnected ? 'Connected' : 'Disconnected'}
           </Badge>
         </div>
         <div>
-          <p className="text-muted-foreground">Liveness</p>
+          <p className="text-gray-400">Liveness</p>
           <Badge className="bg-green-500/20 text-green-300">Alive</Badge>
         </div>
       </section>
 
       {fullHealth?.database.pool && (
         <article className="border-t border-white/[0.06] pt-4">
-          <h4 className="text-sm font-semibold mb-2">Database Pool</h4>
-          <div className="text-xs text-muted-foreground space-y-1">
+          <h4 className="text-sm font-semibold mb-2 text-white">Database Pool</h4>
+          <div className="text-xs text-gray-400 space-y-1">
             <p>
               Connections:{' '}
               <span className="font-mono font-semibold text-foreground">

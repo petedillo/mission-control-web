@@ -98,7 +98,7 @@ export function HostDetailModal({ hostId, onClose }: HostDetailModalProps) {
           {/* Header */}
           <div className="flex items-start justify-between">
             <div>
-              <h2 className="text-2xl font-bold">{host.name}</h2>
+              <h2 className="text-2xl font-bold text-white">{host.name}</h2>
               <Badge className={getStatusColor(host.status)}>{host.status}</Badge>
             </div>
             <button
@@ -112,37 +112,37 @@ export function HostDetailModal({ hostId, onClose }: HostDetailModalProps) {
           {/* Details Grid */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">Type</p>
-              <p className="text-lg">{host.type}</p>
+              <p className="text-sm font-semibold text-gray-400">Type</p>
+              <p className="text-lg text-white">{host.type}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">IP Address</p>
-              <p className="text-lg font-mono">{resolvedIpAddress || 'N/A'}</p>
+              <p className="text-sm font-semibold text-gray-400">IP Address</p>
+              <p className="text-lg font-mono text-white">{resolvedIpAddress || 'N/A'}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">CPU Cores</p>
-              <p className="text-lg">{resolvedCpuCores ?? 'N/A'}</p>
+              <p className="text-sm font-semibold text-gray-400">CPU Cores</p>
+              <p className="text-lg text-white">{resolvedCpuCores ?? 'N/A'}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">Memory (GB)</p>
-              <p className="text-lg">{resolvedMemoryGb ?? 'N/A'}</p>
+              <p className="text-sm font-semibold text-gray-400">Memory (GB)</p>
+              <p className="text-lg text-white">{resolvedMemoryGb ?? 'N/A'}</p>
             </div>
           </div>
 
           {/* Timestamps */}
-          <div className="border-t border-white/[0.06] pt-4 space-y-2 text-sm text-muted-foreground">
+          <div className="border-t border-white/[0.06] pt-4 space-y-2 text-sm text-gray-400">
             <p>
-              <span className="font-semibold text-foreground">Created:</span> {new Date(host.created_at).toLocaleString()}
+              <span className="font-semibold text-white">Created:</span> {new Date(host.created_at).toLocaleString()}
             </p>
             <p>
-              <span className="font-semibold text-foreground">Updated:</span> {new Date(host.updated_at).toLocaleString()}
+              <span className="font-semibold text-white">Updated:</span> {new Date(host.updated_at).toLocaleString()}
             </p>
           </div>
 
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="w-full px-4 py-2 bg-white/[0.1] hover:bg-white/[0.15] rounded-lg font-medium transition-colors"
+            className="w-full px-4 py-2 bg-white/[0.1] hover:bg-white/[0.15] rounded-lg font-medium transition-colors text-white"
           >
             Close
           </button>
