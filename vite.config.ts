@@ -9,6 +9,20 @@ export default defineConfig(({ mode }) => {
   const cfClientId = env.VITE_CF_CLIENT_ID;
   const cfClientSecret = env.VITE_CF_CLIENT_SECRET;
 
+  const createProxyConfig = (target: string) => ({
+    target,
+    changeOrigin: true,
+    secure: true,
+    headers: {
+      ...(cfClientId && cfClientSecret
+        ? {
+            'CF-Access-Client-Id': cfClientId,
+            'CF-Access-Client-Secret': cfClientSecret,
+          }
+        : {}),
+    },
+  });
+
   return {
     plugins: [react()],
     resolve: {
@@ -19,45 +33,9 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3001,
       proxy: {
-        '/api': {
-          target: apiUrl,
-          changeOrigin: true,
-          secure: true,
-          headers: {
-            ...(cfClientId && cfClientSecret
-              ? {
-                  'CF-Access-Client-Id': cfClientId,
-                  'CF-Access-Client-Secret': cfClientSecret,
-                }
-              : {}),
-          },
-        },
-        '/health': {
-          target: apiUrl,
-          changeOrigin: true,
-          secure: true,
-          headers: {
-            ...(cfClientId && cfClientSecret
-              ? {
-                  'CF-Access-Client-Id': cfClientId,
-                  'CF-Access-Client-Secret': cfClientSecret,
-                }
-              : {}),
-          },
-        },
-        '/metrics': {
-          target: apiUrl,
-          changeOrigin: true,
-          secure: true,
-          headers: {
-            ...(cfClientId && cfClientSecret
-              ? {
-                  'CF-Access-Client-Id': cfClientId,
-                  'CF-Access-Client-Secret': cfClientSecret,
-                }
-              : {}),
-          },
-        },
+        '/api': createProxyConfig(apiUrl),
+        '/health': createProxyConfig(apiUrl),
+        '/metrics': createProxyConfig(apiUrl),
       },
     },
     build: {
