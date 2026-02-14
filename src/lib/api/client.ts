@@ -3,12 +3,14 @@ class APIClient {
   private token: string | null = null;
 
   constructor() {
-    const envUrl =
-      (globalThis as { process?: { env?: { NEXT_PUBLIC_API_URL?: string } } })
-        .process?.env?.NEXT_PUBLIC_API_URL;
-    
-    // Default to localhost:3000 for development/port-forwarding
-    this.baseUrl = envUrl || 'http://localhost:3000';
+    // In dev mode, use empty base URL so requests go through the Vite proxy
+    // (which injects Cloudflare service token headers server-side).
+    // In production builds, use the full API URL.
+    if (import.meta.env.DEV) {
+      this.baseUrl = '';
+    } else {
+      this.baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    }
   }
 
   getBaseUrl() {
@@ -24,6 +26,7 @@ class APIClient {
       'Content-Type': 'application/json',
     };
 
+    // Add backend API token if set
     if (this.token) {
       headers['Authorization'] = `Bearer ${this.token}`;
     }
@@ -59,11 +62,17 @@ class APIClient {
   }
 
   createEventSource(path: string): EventSource {
-    const url = new URL(path, this.baseUrl);
-    if (this.token) {
-      url.searchParams.set('token', this.token);
+    let urlStr: string;
+    if (this.baseUrl) {
+      const url = new URL(path, this.baseUrl);
+      if (this.token) {
+        url.searchParams.set('token', this.token);
+      }
+      urlStr = url.toString();
+    } else {
+      urlStr = this.token ? `${path}?token=${encodeURIComponent(this.token)}` : path;
     }
-    return new EventSource(url.toString());
+    return new EventSource(urlStr);
   }
 }
 

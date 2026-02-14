@@ -1,5 +1,3 @@
-'use client';
-
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useInventory } from '@/lib/hooks/useInventory';
@@ -47,8 +45,8 @@ export function InventorySummary() {
             <Skeleton className="h-8 w-12" />
           ) : (
             <>
-              <div className="text-2xl font-bold">{data?.data?.hosts?.length ?? 0}</div>
-              <p className="text-xs text-muted-foreground">Kubernetes nodes & resources</p>
+              <div className="text-2xl font-bold text-white">{data?.data?.hosts?.length ?? 0}</div>
+              <p className="text-xs text-gray-400">Kubernetes nodes & resources</p>
             </>
           )}
         </CardContent>
@@ -63,8 +61,8 @@ export function InventorySummary() {
             <Skeleton className="h-8 w-12" />
           ) : (
             <>
-              <div className="text-2xl font-bold">{data?.data?.workloads?.length ?? 0}</div>
-              <p className="text-xs text-muted-foreground">Deployments, pods & statefulsets</p>
+              <div className="text-2xl font-bold text-white">{data?.data?.workloads?.length ?? 0}</div>
+              <p className="text-xs text-gray-400">Deployments, pods & statefulsets</p>
             </>
           )}
         </CardContent>

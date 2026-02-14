@@ -1,5 +1,3 @@
-'use client';
-
 import { useWorkloadById } from '@/lib/hooks/useInventory';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -91,7 +89,7 @@ export function WorkloadDetailModal({ workloadId, onClose }: WorkloadDetailModal
           {/* Header */}
           <div className="flex items-start justify-between">
             <div>
-              <h2 className="text-2xl font-bold">{workload.name}</h2>
+              <h2 className="text-2xl font-bold text-white">{workload.name}</h2>
               <div className="flex gap-2 mt-2">
                 <Badge className={getStatusColor(workload.status)}>{workload.status}</Badge>
                 <Badge className={getHealthColor(workload.health_status)}>{workload.health_status}</Badge>
@@ -99,7 +97,7 @@ export function WorkloadDetailModal({ workloadId, onClose }: WorkloadDetailModal
             </div>
             <button
               onClick={onClose}
-              className="text-xl font-bold text-muted-foreground hover:text-foreground transition-colors"
+              className="text-xl font-bold text-gray-400 hover:text-white transition-colors"
             >
               ✕
             </button>
@@ -108,45 +106,45 @@ export function WorkloadDetailModal({ workloadId, onClose }: WorkloadDetailModal
           {/* Details Grid */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">Type</p>
-              <p className="text-lg">{workload.type}</p>
+              <p className="text-sm font-semibold text-gray-400">Type</p>
+              <p className="text-lg text-white">{workload.type}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">Namespace</p>
-              <p className="text-lg font-mono">{workload.namespace}</p>
+              <p className="text-sm font-semibold text-gray-400">Namespace</p>
+              <p className="text-lg font-mono text-white">{workload.namespace}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">Replicas</p>
-              <p className="text-lg">{workload.replicas ?? 'N/A'}</p>
+              <p className="text-sm font-semibold text-gray-400">Replicas</p>
+              <p className="text-lg text-white">{workload.replicas ?? 'N/A'}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">Ready Replicas</p>
-              <p className="text-lg">{workload.ready_replicas ?? 'N/A'}</p>
+              <p className="text-sm font-semibold text-gray-400">Ready Replicas</p>
+              <p className="text-lg text-white">{workload.ready_replicas ?? 'N/A'}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">Containers</p>
-              <p className="text-lg">{workload.containers?.length || 0}</p>
+              <p className="text-sm font-semibold text-gray-400">Containers</p>
+              <p className="text-lg text-white">{workload.containers?.length || 0}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-muted-foreground">Image</p>
-              <p className="text-sm font-mono truncate">{workload.image || 'N/A'}</p>
+              <p className="text-sm font-semibold text-gray-400">Image</p>
+              <p className="text-sm font-mono truncate text-white">{workload.image || 'N/A'}</p>
             </div>
           </div>
 
           {/* Timestamps */}
-          <div className="border-t border-white/[0.06] pt-4 space-y-2 text-sm text-muted-foreground">
+          <div className="border-t border-white/[0.06] pt-4 space-y-2 text-sm text-gray-400">
             <p>
-              <span className="font-semibold text-foreground">Created:</span> {new Date(workload.created_at).toLocaleString()}
+              <span className="font-semibold text-white">Created:</span> {new Date(workload.created_at).toLocaleString()}
             </p>
             <p>
-              <span className="font-semibold text-foreground">Updated:</span> {new Date(workload.updated_at).toLocaleString()}
+              <span className="font-semibold text-white">Updated:</span> {new Date(workload.updated_at).toLocaleString()}
             </p>
           </div>
 
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="w-full px-4 py-2 bg-white/[0.1] hover:bg-white/[0.15] rounded-lg font-medium transition-colors"
+            className="w-full px-4 py-2 bg-white/[0.1] hover:bg-white/[0.15] rounded-lg font-medium transition-colors text-white"
           >
             Close
           </button>

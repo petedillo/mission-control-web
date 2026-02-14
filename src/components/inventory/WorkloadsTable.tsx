@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Table,
   TableBody,
@@ -80,11 +78,11 @@ export function WorkloadsTable({ search, onWorkloadSelect }: { search: string; o
                 className="cursor-pointer hover:bg-white/[0.05] transition-colors duration-150"
                 onClick={() => onWorkloadSelect?.(workload.id)}
               >
-                <TableCell className="font-medium">{workload.name}</TableCell>
-                <TableCell className="text-sm text-muted-foreground">
+                <TableCell className="font-medium text-white">{workload.name}</TableCell>
+                <TableCell className="text-sm text-gray-400">
                   {workload.type.replace('k8s-', '')}
                 </TableCell>
-                <TableCell className="text-sm text-muted-foreground">
+                <TableCell className="text-sm text-gray-400">
                   {workload.namespace || '—'}
                 </TableCell>
                 <TableCell>
@@ -93,7 +91,7 @@ export function WorkloadsTable({ search, onWorkloadSelect }: { search: string; o
                 <TableCell>
                   <ResourceBadge status={workload.health_status} />
                 </TableCell>
-                <TableCell className="text-right text-sm text-muted-foreground">
+                <TableCell className="text-right text-sm text-gray-400">
                   {workload.updated_at
                     ? formatDistanceToNow(new Date(workload.updated_at), { addSuffix: true })
                     : '—'}
