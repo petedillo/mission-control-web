@@ -11,7 +11,7 @@ import { ResourceBadge } from './ResourceBadge';
 import { useHosts, useWorkloads, useProxmoxNodes, useArgoCDApplications } from '@/lib/hooks/useInventory';
 import { formatDistanceToNow } from 'date-fns';
 import type { Host, Workload } from '@/types/models';
-import { Server, Package, GitBranch, Filter } from 'lucide-react';
+import { Server, GitBranch } from 'lucide-react';
 import { useState } from 'react';
 
 interface UnifiedResource {
@@ -56,7 +56,7 @@ export function UnifiedResourcesTable({
       source: 'kubernetes',
       status: host.status,
       address: host.addresses?.lan,
-      lastUpdated: host.last_seen_at,
+      lastUpdated: host.last_seen_at ?? undefined,
     });
   });
 
@@ -71,7 +71,7 @@ export function UnifiedResourcesTable({
       status: workload.status,
       namespace: workload.namespace || undefined,
       healthStatus: workload.health_status,
-      lastUpdated: workload.last_updated_at,
+      lastUpdated: workload.last_updated_at ?? undefined,
     });
   });
 
