@@ -1,4 +1,6 @@
 import { InventorySummary } from '@/components/dashboard/InventorySummary';
+import { ProxmoxStatus } from '@/components/dashboard/ProxmoxStatus';
+import { ArgoCDStatus } from '@/components/dashboard/ArgoCDStatus';
 import { HealthStatus } from '@/components/layout/HealthStatus';
 
 export default function DashboardPage() {
@@ -16,6 +18,11 @@ export default function DashboardPage() {
         <aside>
           <HealthStatus />
         </aside>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-2">
+        <ProxmoxStatus />
+        <ArgoCDStatus />
       </section>
     </article>
   );
