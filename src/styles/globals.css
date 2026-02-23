@@ -116,7 +116,7 @@
   }
 
   .glass-card {
-    @apply glass rounded-2xl p-6;
+    @apply glass rounded-2xl p-0;
     background: rgba(var(--glass-surface), 0.6);
   }
 

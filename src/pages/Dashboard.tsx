@@ -5,22 +5,17 @@ import { HealthStatus } from '@/components/layout/HealthStatus';
 
 export default function DashboardPage() {
   return (
-    <article className="space-y-8">
-      <header>
-        <h1 className="text-3xl font-bold tracking-tight text-white">Dashboard</h1>
-        <p className="mt-2 text-gray-300">Welcome to Mission Control. Your homelab at a glance.</p>
-      </header>
-
-      <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+    <article className="space-y-3">
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-3">
+        <div className="lg:col-span-8">
           <InventorySummary />
         </div>
-        <aside>
+        <div className="lg:col-span-4">
           <HealthStatus />
-        </aside>
+        </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2">
+      <section className="grid gap-3 md:grid-cols-2">
         <ProxmoxStatus />
         <ArgoCDStatus />
       </section>
