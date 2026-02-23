@@ -40,13 +40,13 @@ function HealthMetric({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-start gap-3 rounded-xl bg-white/[0.04] p-3 transition-colors hover:bg-white/[0.06]">
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.06]">
-        <Icon className="h-4 w-4 text-gray-400" />
+    <div className="flex items-center gap-2 rounded-lg bg-white/[0.04] px-3 py-2 transition-colors hover:bg-white/[0.06]">
+      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white/[0.06]">
+        <Icon className="h-3.5 w-3.5 text-gray-400" />
       </div>
       <div className="min-w-0">
         <p className="text-xs text-gray-400">{label}</p>
-        <div className="mt-0.5 font-medium text-white">{children}</div>
+        <div className="text-sm font-medium text-white leading-tight">{children}</div>
       </div>
     </div>
   );
@@ -106,11 +106,11 @@ export function HealthStatus() {
         </Badge>
       </CardHeader>
 
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-2">
         <HealthMetric icon={Activity} label="Status">
           <span className="capitalize">{status}</span>
           {fullHealth?.version && (
-            <span className="ml-2 text-xs text-gray-400">v{fullHealth.version}</span>
+            <span className="ml-1 text-xs text-gray-400">v{fullHealth.version}</span>
           )}
         </HealthMetric>
 
@@ -140,21 +140,20 @@ export function HealthStatus() {
 
         {fullHealth?.database.pool && (
           <HealthMetric icon={Server} label="Connection Pool">
-            <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs">
-              {Object.entries(fullHealth.database.pool).map(([key, value]) => (
-                <span key={key} className="text-gray-300">
-                  <span className="text-gray-400">{key}:</span>{' '}
-                  <span className="font-mono text-white">{String(value)}</span>
+            <span className="text-xs text-gray-300">
+              {Object.entries(fullHealth.database.pool).map(([key, value], idx) => (
+                <span key={key}>
+                  {idx > 0 && ' · '}<span className="text-gray-400">{key}:</span> <span className="font-mono text-white">{String(value)}</span>
                 </span>
               ))}
-            </div>
+            </span>
           </HealthMetric>
         )}
       </CardContent>
 
-      <CardFooter className="border-t border-white/[0.06] pt-4 text-xs text-gray-400">
-        <Clock className="mr-1.5 h-3 w-3" />
-        Updated {new Date(fullHealth?.timestamp || Date.now()).toLocaleTimeString()}
+      <CardFooter className="border-t border-white/[0.06] pt-2 text-xs text-gray-500">
+        <Clock className="mr-1 h-3 w-3 flex-shrink-0" />
+        <span className="truncate">Updated {new Date(fullHealth?.timestamp || Date.now()).toLocaleTimeString()}</span>
       </CardFooter>
     </Card>
   );

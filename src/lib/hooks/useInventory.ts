@@ -91,6 +91,40 @@ export function useLiveness() {
   });
 }
 
+export function useProxmoxNodes() {
+  const fetcher: BareFetcher<APIResponse<any[]> | undefined> = async (path: string) => {
+    return apiClient.get(path);
+  };
+  return useSWR<APIResponse<any[]> | undefined>('/api/v1/proxmox/nodes', fetcher, {
+    refreshInterval: 10000,
+    revalidateOnFocus: true,
+    dedupingInterval: 5000,
+  });
+}
+
+export function useProxmoxResources(type?: 'node' | 'vm' | 'storage') {
+  const fetcher: BareFetcher<APIResponse<any[]> | undefined> = async (path: string) => {
+    return apiClient.get(path);
+  };
+  const query = type ? `?type=${type}` : '';
+  return useSWR<APIResponse<any[]> | undefined>(`/api/v1/proxmox/resources${query}`, fetcher, {
+    refreshInterval: 10000,
+    revalidateOnFocus: true,
+    dedupingInterval: 5000,
+  });
+}
+
+export function useArgoCDApplications() {
+  const fetcher: BareFetcher<APIResponse<any[]> | undefined> = async (path: string) => {
+    return apiClient.get(path);
+  };
+  return useSWR<APIResponse<any[]> | undefined>('/api/v1/argocd/applications', fetcher, {
+    refreshInterval: 10000,
+    revalidateOnFocus: true,
+    dedupingInterval: 5000,
+  });
+}
+
 export async function triggerInventorySync() {
   try {
     const response = await apiClient.post<APIResponse<SyncResponse>>('/api/v1/inventory/refresh', {
