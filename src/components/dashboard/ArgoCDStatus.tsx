@@ -79,17 +79,20 @@ export function ArgoCDStatus() {
   );
 
   return (
-    <Card className="hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+    <Card className="border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/5 bg-gradient-to-br from-white/5 to-transparent">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 border-b border-white/5">
         <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-lg transition-colors ${connected ? 'bg-amber-500/10' : 'bg-gray-700/20'}`}>
-            <GitBranch className={`h-5 w-5 transition-colors ${connected ? 'text-amber-400' : 'text-gray-500'}`} />
+          <div className={`p-2.5 rounded-lg transition-all ${connected ? 'bg-amber-500/15 ring-1 ring-amber-500/30' : 'bg-gray-700/20'}`}>
+            <GitBranch className={`h-4 w-4 transition-colors ${connected ? 'text-amber-400' : 'text-gray-500'}`} />
           </div>
-          <CardTitle className="text-sm font-medium">ArgoCD</CardTitle>
+          <div>
+            <CardTitle className="text-sm font-semibold">ArgoCD</CardTitle>
+            <p className="text-xs text-gray-500 mt-0.5">Application deployment</p>
+          </div>
         </div>
         {connected && <div className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />}
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-4">
         {isLoading ? (
           <div className="space-y-3">
             <Skeleton className="h-6 w-24" />
@@ -121,32 +124,32 @@ export function ArgoCDStatus() {
             {/* Quick stats */}
             {apps.length > 0 && (
               <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="p-2 rounded-lg bg-white/5 border border-white/10">
+                <div className="p-2.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
                   <div className="text-lg font-bold text-white">{apps.length}</div>
-                  <p className="text-xs text-gray-500">Total</p>
+                  <p className="text-xs text-gray-500 font-medium">Total</p>
                 </div>
-                <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20">
+                <div className="p-2.5 rounded-lg bg-green-500/10 border border-green-500/20 hover:bg-green-500/15 transition-colors">
                   <div className="text-lg font-bold text-green-400">{syncedCount}</div>
-                  <p className="text-xs text-gray-500">Synced</p>
+                  <p className="text-xs text-gray-500 font-medium">Synced</p>
                 </div>
-                <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                <div className="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/15 transition-colors">
                   <div className="text-lg font-bold text-blue-400">{healthyCount}</div>
-                  <p className="text-xs text-gray-500">Healthy</p>
+                  <p className="text-xs text-gray-500 font-medium">Healthy</p>
                 </div>
               </div>
             )}
 
             {/* Applications list */}
             {apps.length > 0 ? (
-              <div className="space-y-2">
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">
-                  Applications
+              <div className="space-y-2.5">
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-widest">
+                  Applications ({apps.length})
                 </p>
                 <div className="space-y-2">
                   {apps.map((app) => (
                     <div
                       key={app.name}
-                      className="p-3 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
+                      className="p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/[0.08] hover:border-white/20 transition-all"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
@@ -160,7 +163,7 @@ export function ArgoCDStatus() {
                       </div>
                       {app.revision && (
                         <p className="font-mono text-xs text-gray-600 mt-1">
-                          {app.revision.slice(0, 7)}
+                          rev: {app.revision.slice(0, 7)}
                         </p>
                       )}
                     </div>

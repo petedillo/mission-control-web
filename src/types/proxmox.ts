@@ -24,6 +24,4 @@ export interface ProxmoxResource {
   maxmem?: number;
 }
 
-export interface ProxmoxResourcesData {
-  resources: ProxmoxResource[];
-}
+export type ProxmoxResourcesData = ProxmoxResource[];

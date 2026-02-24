@@ -24,19 +24,19 @@ export function ResourceCard({ name, id, status, node, cpu, maxcpu, mem, maxmem 
   const memPct = maxmem && mem !== undefined ? Math.round((mem / maxmem) * 100) : null;
 
   return (
-    <div className="p-3 rounded-lg bg-white/5 border border-white/10 hover:border-white/20 transition-colors space-y-2">
-      <div className="flex items-center justify-between gap-2">
-        <div className="min-w-0">
+    <div className="p-3 rounded-lg bg-white/5 border border-white/10 hover:bg-white/[0.08] hover:border-white/20 transition-all space-y-2.5">
+      <div className="flex items-start justify-between gap-2">
+        <div className="min-w-0 flex-1">
           <p className="text-sm font-medium text-white truncate">{name}</p>
-          <p className="font-mono text-xs text-gray-500">
-            ID: {id}{node ? ` · ${node}` : ''}
+          <p className="font-mono text-xs text-gray-500 mt-0.5">
+            {id}{node ? ` · ${node}` : ''}
           </p>
         </div>
         <Badge
           className={
             isRunning
-              ? 'bg-green-500/20 text-green-300 border-green-500/30 shrink-0'
-              : 'bg-gray-500/20 text-gray-400 border-gray-500/30 shrink-0'
+              ? 'bg-green-500/20 text-green-300 border-green-500/30 shrink-0 text-xs font-medium'
+              : 'bg-gray-500/20 text-gray-400 border-gray-500/30 shrink-0 text-xs font-medium'
           }
         >
           {status}
@@ -44,29 +44,29 @@ export function ResourceCard({ name, id, status, node, cpu, maxcpu, mem, maxmem 
       </div>
 
       {(cpuPct !== null || memPct !== null) && (
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {cpuPct !== null && (
             <div className="flex items-center gap-2">
-              <Cpu className="h-3 w-3 text-gray-500 shrink-0" />
+              <Cpu className="h-3.5 w-3.5 text-blue-400 shrink-0" />
               <div className="flex-1 h-1.5 bg-gray-700/50 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-blue-500 to-blue-400 transition-all duration-500"
                   style={{ width: `${cpuPct}%` }}
                 />
               </div>
-              <span className="text-xs text-gray-500 w-8 text-right">{cpuPct}%</span>
+              <span className="text-xs text-gray-400 w-8 text-right font-medium">{cpuPct}%</span>
             </div>
           )}
           {memPct !== null && mem !== undefined && maxmem !== undefined && (
             <div className="flex items-center gap-2">
-              <HardDrive className="h-3 w-3 text-gray-500 shrink-0" />
+              <HardDrive className="h-3.5 w-3.5 text-purple-400 shrink-0" />
               <div className="flex-1 h-1.5 bg-gray-700/50 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-purple-500 to-purple-400 transition-all duration-500"
                   style={{ width: `${memPct}%` }}
                 />
               </div>
-              <span className="text-xs text-gray-500 w-16 text-right">
+              <span className="text-xs text-gray-400 w-16 text-right font-medium">
                 {formatBytes(mem)}/{formatBytes(maxmem)}
               </span>
             </div>
