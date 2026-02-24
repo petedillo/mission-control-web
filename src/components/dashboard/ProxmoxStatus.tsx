@@ -1,15 +1,23 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
-import { Server, AlertCircle, CheckCircle2 } from 'lucide-react';
-import { useProxmoxStatus, useProxmoxNodes } from '@/lib/hooks/useProxmox';
+import { Server, AlertCircle, CheckCircle2, Cpu, HardDrive } from 'lucide-react';
+import { useProxmoxStatus, useProxmoxNodes, useProxmoxResources } from '@/lib/hooks/useProxmox';
+import { ResourceCard } from '@/components/dashboard/ResourceCard';
+
+function formatBytes(bytes: number): string {
+  if (bytes >= 1073741824) return `${(bytes / 1073741824).toFixed(1)} GB`;
+  if (bytes >= 1048576) return `${(bytes / 1048576).toFixed(0)} MB`;
+  return `${bytes} B`;
+}
 
 export function ProxmoxStatus() {
   const { data: statusData, isLoading: statusLoading, error: statusError } = useProxmoxStatus();
   const { data: nodesData, isLoading: nodesLoading, error: nodesError } = useProxmoxNodes();
+  const { data: resourcesData, isLoading: resourcesLoading, error: resourcesError } = useProxmoxResources('lxc');
 
-  const isLoading = statusLoading || nodesLoading;
-  const error = statusError || nodesError;
+  const isLoading = statusLoading || nodesLoading || resourcesLoading;
+  const error = statusError || nodesError || resourcesError;
 
   if (error) {
     return (
@@ -32,7 +40,9 @@ export function ProxmoxStatus() {
   }
 
   const connected = statusData?.data?.connected ?? false;
-  const nodeCount = nodesData?.data?.length ?? 0;
+  const nodes = nodesData?.data ?? [];
+  const resources = resourcesData?.data?.resources ?? [];
+  const runningResources = resources.filter((r) => r.status === 'running');
 
   return (
     <Card className="hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
@@ -47,14 +57,16 @@ export function ProxmoxStatus() {
       </CardHeader>
       <CardContent>
         {isLoading ? (
-          <>
-            <Skeleton className="h-6 w-24 mb-3" />
-            <Skeleton className="h-10 w-16 mb-2" />
-            <Skeleton className="h-4 w-32" />
-          </>
+          <div className="space-y-3">
+            <Skeleton className="h-6 w-24" />
+            <Skeleton className="h-4 w-48" />
+            <Skeleton className="h-4 w-40" />
+            <Skeleton className="h-16 w-full" />
+          </div>
         ) : (
-          <>
-            <div className="mb-4 flex items-center gap-2">
+          <div className="space-y-4">
+            {/* Connection status */}
+            <div className="flex items-center gap-2">
               {connected ? (
                 <>
                   <CheckCircle2 className="h-4 w-4 text-green-400" />
@@ -71,13 +83,98 @@ export function ProxmoxStatus() {
                 </>
               )}
             </div>
-            <div className="space-y-2">
-              <div>
-                <div className="text-3xl font-bold text-white">{nodeCount}</div>
-                <p className="text-xs text-gray-400 mt-1">Proxmox nodes</p>
+
+            {/* Nodes with CPU/Memory bars */}
+            {nodes.length > 0 && (
+              <div className="space-y-3">
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                  Nodes ({nodes.length})
+                </p>
+                {nodes.map((node) => {
+                  const cpuPct = node.maxcpu && node.cpu !== undefined
+                    ? Math.round((node.cpu / node.maxcpu) * 100)
+                    : null;
+                  const memPct = node.maxmem && node.mem !== undefined
+                    ? Math.round((node.mem / node.maxmem) * 100)
+                    : null;
+                  return (
+                    <div key={node.node} className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-white">{node.node}</span>
+                        <Badge
+                          className={
+                            node.status === 'online'
+                              ? 'bg-green-500/20 text-green-300 border-green-500/30 text-xs'
+                              : 'bg-gray-500/20 text-gray-400 border-gray-500/30 text-xs'
+                          }
+                        >
+                          {node.status ?? 'unknown'}
+                        </Badge>
+                      </div>
+                      {cpuPct !== null && (
+                        <div className="flex items-center gap-2">
+                          <Cpu className="h-3 w-3 text-gray-500 shrink-0" />
+                          <div className="flex-1 h-1.5 bg-gray-700/50 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-gradient-to-r from-blue-500 to-blue-400 transition-all duration-500"
+                              style={{ width: `${cpuPct}%` }}
+                            />
+                          </div>
+                          <span className="text-xs text-gray-500 w-8 text-right">{cpuPct}%</span>
+                        </div>
+                      )}
+                      {memPct !== null && node.mem !== undefined && node.maxmem !== undefined && (
+                        <div className="flex items-center gap-2">
+                          <HardDrive className="h-3 w-3 text-gray-500 shrink-0" />
+                          <div className="flex-1 h-1.5 bg-gray-700/50 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-gradient-to-r from-purple-500 to-purple-400 transition-all duration-500"
+                              style={{ width: `${memPct}%` }}
+                            />
+                          </div>
+                          <span className="text-xs text-gray-500 w-24 text-right">
+                            {formatBytes(node.mem)}/{formatBytes(node.maxmem)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            </div>
-          </>
+            )}
+
+            {/* Running LXCs/VMs grid */}
+            {resources.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                  LXC Containers ({runningResources.length}/{resources.length} running)
+                </p>
+                <div className="grid grid-cols-1 gap-2">
+                  {resources.map((resource) => (
+                    <ResourceCard
+                      key={resource.vmid}
+                      name={resource.name}
+                      id={resource.vmid}
+                      status={resource.status}
+                      node={resource.node}
+                      cpu={resource.cpu}
+                      maxcpu={resource.maxcpu}
+                      mem={resource.mem}
+                      maxmem={resource.maxmem}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Fallback count when no detailed data */}
+            {nodes.length === 0 && resources.length === 0 && (
+              <div>
+                <div className="text-3xl font-bold text-white">—</div>
+                <p className="text-xs text-gray-400 mt-1">No node data available</p>
+              </div>
+            )}
+          </div>
         )}
       </CardContent>
     </Card>
