@@ -8,7 +8,7 @@ export function useArgoCDStatus() {
     return apiClient.get(path);
   };
   return useSWR<APIResponse<ArgoCDStatusData> | undefined>('/api/v1/argocd/status', fetcher, {
-    refreshInterval: 30000,
+    refreshInterval: 60000,
     revalidateOnFocus: true,
     dedupingInterval: 5000,
   });
@@ -19,7 +19,7 @@ export function useArgoCDApplications() {
     return apiClient.get(path);
   };
   return useSWR<APIResponse<ArgoAppStatus[]> | undefined>('/api/v1/argocd/applications', fetcher, {
-    refreshInterval: 30000,
+    refreshInterval: 60000,
     revalidateOnFocus: true,
     dedupingInterval: 5000,
   });
