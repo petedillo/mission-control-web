@@ -12,3 +12,16 @@ export interface ProxmoxNode {
   mem?: number;
   uptime?: number;
 }
+
+export interface ProxmoxResource {
+  vmid: number;
+  name: string;
+  node: string;
+  status: string;
+  cpu?: number;
+  maxcpu?: number;
+  mem?: number;
+  maxmem?: number;
+}
+
+export type ProxmoxResourcesData = ProxmoxResource[];

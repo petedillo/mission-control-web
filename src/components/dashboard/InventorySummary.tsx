@@ -27,16 +27,19 @@ export function InventorySummary() {
   }
 
   return (
-    <Card className="hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+    <Card className="border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 bg-gradient-to-br from-white/5 to-transparent">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 border-b border-white/5">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-500/10 rounded-lg">
-            <Server className="h-5 w-5 text-blue-400" />
+          <div className="p-2.5 bg-blue-500/15 rounded-lg ring-1 ring-blue-500/30">
+            <Server className="h-4 w-4 text-blue-400" />
           </div>
-          <CardTitle className="text-sm font-medium">Kubernetes Inventory</CardTitle>
+          <div>
+            <CardTitle className="text-sm font-semibold">Kubernetes Inventory</CardTitle>
+            <p className="text-xs text-gray-500 mt-0.5">Nodes & workloads</p>
+          </div>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-4">
         {isLoading ? (
           <>
             <Skeleton className="h-10 w-16 mb-3" />
@@ -46,17 +49,15 @@ export function InventorySummary() {
           </>
         ) : (
           <div className="space-y-4">
-            <div className="flex items-start justify-between pb-3 border-b border-white/10">
-              <div>
-                <p className="text-xs text-gray-400 mb-1">Hosts</p>
-                <div className="text-2xl font-bold text-white">{data?.data?.hosts?.length ?? 0}</div>
-                <p className="text-xs text-gray-500 mt-0.5">Kubernetes nodes & resources</p>
-              </div>
+            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+              <p className="text-xs text-gray-400 font-medium uppercase tracking-wider mb-1">Hosts</p>
+              <div className="text-3xl font-bold text-blue-400">{data?.data?.hosts?.length ?? 0}</div>
+              <p className="text-xs text-gray-500 mt-1">Kubernetes nodes & resources</p>
             </div>
-            <div>
-              <p className="text-xs text-gray-400 mb-1">Workloads</p>
-              <div className="text-2xl font-bold text-white">{data?.data?.workloads?.length ?? 0}</div>
-              <p className="text-xs text-gray-500 mt-0.5">Deployments, pods & statefulsets</p>
+            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+              <p className="text-xs text-gray-400 font-medium uppercase tracking-wider mb-1">Workloads</p>
+              <div className="text-3xl font-bold text-blue-400">{data?.data?.workloads?.length ?? 0}</div>
+              <p className="text-xs text-gray-500 mt-1">Deployments, pods & statefulsets</p>
             </div>
           </div>
         )}
